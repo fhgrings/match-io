@@ -1,0 +1,130 @@
+version: '3.7'
+services:
+  database:
+      image: mysql:8
+      container_name: database
+      ports:
+          - "3306:3306"
+      volumes:
+          - ./database/sql:/docker-entrypoint-initdb.d
+          - ./volumes/mysql/data:/var/lib/mysql
+      environment:
+          MYSQL_ROOT_USER: admin
+          MYSQL_ROOT_PASSWORD: admin
+          MYSQL_DATABASE: main
+      deploy:
+        replicas: 1
+        resources:
+          limits:
+            cpus: '1'
+            memory: 150M  
+  
+  influxdb:
+      image: influxdb:1.8.2
+      container_name: influxdb
+      ports:
+        - "8083:8083"
+        - "8086:8086"
+        - "8090:8090"
+      volumes:
+        - ./volumes/influx/data/:/var/lib/influxdb
+
+  grafana:
+    image: grafana/grafana:7.1.4-ubuntu
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: 123456
+      GF_INSTALL_PLUGINS: grafana-image-renderer
+      TZ: America/Argentina/Buenos_Aires
+      GF_AUTH_ANONYMOUS_ORG_NAME: Match-io
+    environment:
+      - GF_SECURITY_ALLOW_EMBEDDING=true
+      - GF_PANELS_DISABLE_SANITIZE_HTML=true
+      - GF_SECURITY_COOKIE_SAMESITE=disabled
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+
+    user: "0"
+    volumes:
+    - ./volumes/grafana/data/:/var/lib/grafana
+    - ./grafana.ini:/etc/grafana/grafana.ini
+    links:
+      - influxdb
+
+  emqx:
+    image: emqx/emqx:v4.0.1
+    container_name: emqx
+    restart: always
+    environment:
+      EMQX_NAME: matchio-emqx
+      EMQX_HOST: 127.0.0.1
+    ports:
+      - "18083:18083"
+      - "1883:1883"
+    volumes:
+      - ./volumes/emqx/data/:/opt/emqx/data
+      - ./volumes/emqx/etc/:/opt/emqx/etc
+  
+  device_service:
+    image: device_service
+    container_name: device_service
+    build:
+      context: ./services/device-service
+      dockerfile: Dockerfile
+    ports:
+      - "7080:7080"
+  
+  user_service:
+    container_name: user_service
+    image: user_service
+    build:
+      context: ./services/user-service
+      dockerfile: Dockerfile
+    ports:
+      - "6080:6080"
+
+  login_service:
+    image: login_service
+    container_name: login_service
+    build:
+      context: ./services/login-service
+      dockerfile: Dockerfile
+    ports:
+      - "5080:5080"
+  
+  mqtt-parser:
+    container_name: mqtt-parser
+    image: mqtt-parser
+    build:
+      context: ./services/mqtt-parser-service
+      dockerfile: Dockerfile
+    ports:
+      - "1080:1080"
+    depends_on:
+      - influxdb
+      - emqx
+      - database
+
+  mqtt-parser:
+    container_name: mqtt-parser
+    image: mqtt-parser
+    build:
+      context: ./services/mqtt-parser-service
+      dockerfile: Dockerfile
+    ports:
+      - "1080:1080"
+    depends_on:
+      - influxdb
+      - emqx
+
+  frontend-matchio:
+    container_name: frontend-matchio
+    image: frontend-matchio
+    build:
+      context: ./services/frontend-matchio
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - device_service

@@ -1,0 +1,14 @@
+[default]
+TITLE = "MQTT-SAVE"
+EXTENSIONS = [
+    "src.ext.configuration:init_app",
+    "src.ext.database:init_app",
+    "src.blueprints.routes.routes:init_app",
+    "src.mqtt.paho_mqtt:init_app"
+]
+MQTT_HOST = "172.17.0.1"
+MQTT_PORT = 1883
+
+INFLUXDB_HOST = "172.17.0.1"
+INFLUXDB_PORT = "8086"
+INFLUXDB_DATABASE = "mydb"
