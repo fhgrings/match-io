@@ -42,23 +42,17 @@ Import projects on Platform IO and deploy to microcontrolers
 
 ## Results
 
-![high-architecture](/media/felipe/DATA1/Academico/Engenharia_Computacao/13_Semestre/TCC_II/Repositorio-GitHub/Match-io/imgs/high-architecture.png)
+![high-architecture](./imgs/high-architecture.png)
 
-![detailed-architecture](/media/felipe/DATA1/Academico/Engenharia_Computacao/13_Semestre/TCC_II/Repositorio-GitHub/Match-io/imgs/detailed-architecture.png)
+![detailed-architecture](./imgs/detailed-architecture.png)
 
-![services-architecture](/media/felipe/DATA1/Academico/Engenharia_Computacao/13_Semestre/TCC_II/Repositorio-GitHub/Match-io/imgs/services-architecture.png)
+![services-architecture](./imgs/services-architecture.png)
 
+![node-case](./imgs/node-case.png)
 
+![control-panel](./imgs/control-panel.png)
 
-![node-case](/media/felipe/DATA1/Academico/Engenharia_Computacao/13_Semestre/TCC_II/Repositorio-GitHub/Match-io/imgs/node-case.png)
-
-
-
-![control-panel](/media/felipe/DATA1/Academico/Engenharia_Computacao/13_Semestre/TCC_II/Repositorio-GitHub/Match-io/imgs/control-panel.png)
-
-![dashboard](/media/felipe/DATA1/Academico/Engenharia_Computacao/13_Semestre/TCC_II/Repositorio-GitHub/Match-io/imgs/dashboard.png)
-
-
+![dashboard](./imgs/dashboard.png)
 
 ### Authors and acknowledgment
 
