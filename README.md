@@ -40,14 +40,25 @@ Import projects on Platform IO and deploy to microcontrolers
 
 ## Results
 
+### Architecture
 ![high-architecture](./imgs/high-architecture.png)
 
 ![detailed-architecture](./imgs/detailed-architecture.png)
 
 ![services-architecture](./imgs/services-architecture.png)
 
+### Hardware
+![Arduino PCB](./imgs/arduino-pcb.png)
+
+![pcb-building](./imgs/pcb-building.jpg)
+
+![pcb-back](./imgs/pcb-back.jpg)
+
+![pcb-front](./imgs/pcb-front.jpg)
+
 ![node-case](./imgs/node-case.png)
 
+### Final Results
 ![control-panel](./imgs/control-panel.png)
 
 ![dashboard](./imgs/dashboard.png)
